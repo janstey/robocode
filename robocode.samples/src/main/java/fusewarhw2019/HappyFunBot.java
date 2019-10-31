@@ -75,7 +75,6 @@ public class HappyFunBot extends Robot
 	}
 	
 	public void onRobotDeath(RobotDeathEvent rde) {
-		System.out.println(rde.getName() + " died, what a loser!");
 	}
 
 	/**
