@@ -15,16 +15,12 @@ import java.awt.*;
 public class PointyHairedBoss extends AdvancedRobot {
 	int count = 0; // Keeps track of how long we've
 	// been searching for our target
-	double gunTurnAmt; // How much to turn our gun when searching
-	String trackName; // Name of the robot we're currently tracking
+	double gunTurnAmt = 10; // How much to turn our gun when searching
+	String trackName = null; // Name of the robot we're currently tracking
 
 	public void run() {
 		this.setColors(Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK);
-
-		// Prepare gun
-		trackName = null; // Initialize to not tracking anyone
 		setAdjustGunForRobotTurn(true); // Keep the gun still when we turn
-		gunTurnAmt = 10; // Initialize gunTurn to 10
 
 		// Loop forever
 		while (true) {
@@ -33,15 +29,15 @@ public class PointyHairedBoss extends AdvancedRobot {
 			// Keep track of how long we've been looking
 			count++;
 			// If we've haven't seen our target for 2 turns, look left
-			if (count > 2) {
+			if (count > 4) {
 				gunTurnAmt = -10;
 			}
 			// If we still haven't seen our target for 5 turns, look right
-			if (count > 5) {
+			if (count > 8) {
 				gunTurnAmt = 10;
 			}
 			// If we *still* haven't seen our target after 10 turns, find another target
-			if (count > 11) {
+			if (count > 12) {
 				trackName = null;
 			}
 			scan();
@@ -49,7 +45,6 @@ public class PointyHairedBoss extends AdvancedRobot {
 	}
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-
 		// If we have a target, and this isn't it, return immediately
 		// so we can get more ScannedRobotEvents.
 		if (trackName != null && !e.getName().equals(trackName)) {
@@ -93,8 +88,29 @@ public class PointyHairedBoss extends AdvancedRobot {
 		// Back up a bit.
 		gunTurnAmt = normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
 		setTurnGunRight(gunTurnAmt);
-		setFire(3);
-		setBack(50);
+		
+        // if we have health to spare, lets go for the ram bonus!
+        if (this.getEnergy() > 50.0) {
+            setTurnRight(e.getBearing());
+
+            // Determine a shot that won't kill the robot...
+            // We want to ram him instead for bonus points
+            if (e.getEnergy() > 16) {
+                setFire(3);
+            } else if (e.getEnergy() > 10) {
+                setFire(2);
+            } else if (e.getEnergy() > 4) {
+                setFire(1);
+            } else if (e.getEnergy() > 2) {
+                setFire(.5);
+            } else if (e.getEnergy() > .4) {
+                setFire(.1);
+            }
+            setAhead(40); // Ram him again!
+		} else {
+		    setFire(3);
+		    setBack(50);
+		}
 		execute();
 	}
 
