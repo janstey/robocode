@@ -16,6 +16,11 @@ public abstract class Core {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s: %s", getClass().getSimpleName(), weight);
+    }
+
     public int getWeight() {
         return weight;
     }

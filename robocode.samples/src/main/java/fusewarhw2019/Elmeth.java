@@ -36,6 +36,7 @@ public class Elmeth extends AdvancedRobot {
             new SpinCore(this, 40),
             new WallsCore(this, 40),
             new CrazyCore(this, 20));
+        System.out.println("[Elmeth] core table: " + cores);
 
         core = elect();
     }
