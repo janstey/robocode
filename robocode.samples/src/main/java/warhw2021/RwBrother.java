@@ -88,7 +88,7 @@ public class RwBrother extends AdvancedRobot {
         }
 
         // getHeading() - getGunHeading() + e.getBearing()
-        double bearingRadians = enemybearingRadians + getHeadingRadians() - getGunHeadingRadians();
+        double bearingRadians = enemy.bearingRadians + getHeadingRadians() - getGunHeadingRadians();
 //      System.out.println("enemy.bearingRadians*57.2958 = "+enemy.bearingRadians*57.2958+" degrees against "+enemy.name);
 //      System.out.println("bearingRadians = "+bearingRadians*57.2958+" degrees against "+enemy.name);
 
