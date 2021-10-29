@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import gn.maths.BrentSolver;
+import warhw2021.gn.maths.BrentSolver;
 import robocode.Rules;
 import robocode.util.Utils;
 
