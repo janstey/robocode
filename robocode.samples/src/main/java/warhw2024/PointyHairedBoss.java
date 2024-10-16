@@ -1,4 +1,4 @@
-package warhw2021;
+package warhw2024;
 
 import robocode.*;
 import static robocode.util.Utils.normalRelativeAngleDegrees;
